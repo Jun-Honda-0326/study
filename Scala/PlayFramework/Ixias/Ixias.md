@@ -188,15 +188,15 @@ def all():Future[Seq[EntityEmbeddedId]] = RunDBAction(TodoTable, slave) {slick =
 そのため、Play <==> SQLとのDBカラムのマッピング定義が必要である。
 こちらの実装についてもIxiasを用いて定義することができる。
 
-定義元は[ixias.persistence.lifted.SlickColumnOptionOps](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/persistence/lifted/SlickColumnOptionOps.scala)に記載されており、この中からマッチしているカラムに変換する処理を記述する
+定義元は[ixias.persistence.lifted.SlickColumnOptionOps](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/persistence/lifted/SlickColumnOptionOps.scala)に記載されており、この中からマッチしているカラムに変換する処理を記述する<br>
 実装例
 ```scala
 def title = column[String]("title", O.Utf8Char255)`
 ```
-def title ... Play側のカラム名<br>
-column[String] ... Play側の型<br>
-"title" ... SQL側のカラム名<br>
-O.Utf8Char255 ... SQL VARCHAR(255)型 文字コードutf8mb4使用<br>
+- def title ... Play側のカラム名<br>
+- column[String] ... Play側の型<br>
+- "title" ... SQL側のカラム名<br>
+- O.Utf8Char255 ... SQL VARCHAR(255)型 文字コードutf8mb4使用<br>
 
 # EnumStatusについて
 Enum型は[ixias.util.Enum](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/util/Enum.scala)を参照
