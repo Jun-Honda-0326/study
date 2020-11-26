@@ -113,7 +113,7 @@ def remove(id: Id): Future[Option[EntityEmbeddedId]] //レコードの削除
 EntityIOActionを継承することにより、CRUD処理等のメソッドの命名や引数と返り値の型を統一することができる、プロダクトのコードを標準化することができる。
 
 ## EntityEmbeddedId型に包まれたデータの取得について
-### Entityで包まれた値が`.v`で取得できる訳について(自信ないですが...)
+### Entityで包まれた値が`.v`で取得できる訳について
 Enitityクラスについては[ixias.model.Entity.scala](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/Entity.scala)に以下のように実装されています。
 ``` scala
 final case class Entity[K <: @@[_, _], +M <: EntityModel[K], S <: IdStatus](v: M)
