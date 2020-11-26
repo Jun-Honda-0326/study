@@ -126,7 +126,7 @@ def id(implicit ev: S =:= IdStatus.Exists): K = v.id.get
 ```
 
 ### SlickRunDBActionについて
--　永続ストレージとは...DBみたいなやつ(ちゃんとした知識については勉強中)
+- 永続ストレージとは...DBみたいなやつ(ちゃんとした知識については勉強中)
 SlickRunDBAcionにテーブルと永続ストレージ(defaultではmaster)を指定することでslick.jdbc.JdbcBackendトレイトに用意されているタイプのdb.runメソッドと同じように非同期で実行する。
 
 ### 永続ストレージの使い分け(masterとslave)について
