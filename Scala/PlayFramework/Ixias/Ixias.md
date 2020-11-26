@@ -113,11 +113,64 @@ def remove(id: Id): Future[Option[EntityEmbeddedId]] //レコードの削除
 EntityIOActionを継承することにより、CRUD処理等のメソッドの命名や引数と返り値の型を統一することができる、プロダクトのコードを標準化することができる。
 
 ## EntityEmbeddedId型に包まれたデータの取得について
-Entity型に包まれている値は`todo.v.title`のように続けて入力することで取得できる
+idの値に関しては`.id`で取得することができる。
+その他の値は`todo.v.title`のように続けて入力することで取得できる
 
+idが`.id`で取得できるのは[ixias.model.Entity.scala](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/Entity.scala)で以下のように実装されているためである。
 ```scala
 def id(implicit ev: S =:= IdStatus.Exists): K = v.id.get
+
+例えば
+変数todo[EntityEmbeddedId]からidの値を取り出した場合、todo.idで取得できる
+変数todo[EntityEmbeddedId]からtitleの値を取り出したい場合、todo.v.nameで取得できる
 ```
+
+### SlickRunDBActionについて
+-　永続ストレージとは...DBみたいなやつ(ちゃんとした知識については勉強中)
+SlickRunDBAcionにテーブルと永続ストレージ(defaultではmaster)を指定することでslick.jdbc.JdbcBackendトレイトに用意されているタイプのdb.runメソッドと同じように非同期で実行する。
+
+### 永続ストレージの使い分け(masterとslave)について
+永続ストレージはdefaultではmasterになっており、大まかに処理形と参照形に分かれている。<br>
+処理を分けることにより、障害対策と負荷分散を行うことができる。
+
+- masterはDBのデータを操作する場合(追加、削除)
+- slaveはDBのデータを取得する場合(一件取得、一覧表示)
+
+Slickのみの実装とIxiasを使った実装
+```scala
+Slickのみの場合
+def all():Future[Seq[Todo]] = db.run(TodoTable.result)
+
+
+Ixiasを使用する場合
+def all():Future[Seq[EntityEmbeddedId]] = RunDBAction(TodoTable, slave) {slick =>  slick.result }
+※返り値がEntityEmbeddedId型になっている
+※deb.run ≒ RunDBAction
+※取得形の処理なので、永続ストレージslaveを使用している
+※db.run及びRunDBActionによりDBへアクセスしている。
+```
+
+# SQLとPlay側とのマッピング定義について
+当然の事ながら、SQLで使用している型とPlayで使用している型は違う。<br>
+そのため、Play <==> SQLとのDBカラムのマッピング定義が必要である。
+こちらの実装についてもIxiasを用いて定義することができる。
+
+定義元は[ixias.persistence.lifted.SlickColumnOptionOps]に記載されており、この中からマッチしているカラムに変換する処理を記述する
+実装例
+```scala
+def title = column[String]("title", O.Utf8Char255)`
+```
+def title ... Play側のカラム名<br>
+column[String] ... Play側の型<br>
+"title" ... SQL側のカラム名<br>
+O.Utf8Char255 ... SQL VARCHAR(255)型 文字コードutf8mb4使用<br>
+
+
+
+
+
+
+
 
 
 # EnumStatusについて
