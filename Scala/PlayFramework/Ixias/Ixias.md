@@ -122,7 +122,7 @@ final case class Entity[K <: @@[_, _], +M <: EntityModel[K], S <: IdStatus](v: M
 例えば、
 `case class Person(id: Int, name: String)`の場合だと
 nameの値を取り出したければ インスタンスを生成して、person.nameで取り出せばいけるが、それと考えは同じ！<br>
-どういうことかと言うと、obejct Entityを良く見てください。
+どういうことかと言うと、同じくixias.model.Entity.scalaのobejct Entityを良く見てください。
 ```scala
 //WirhNoId型は省略しています
 obejct Entity{
