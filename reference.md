@@ -1,4 +1,5 @@
 # 参考になるリンク集
+
 ## Scala
 - [ドワンゴ研修教材](https://scala-text.github.io/scala_text/basic.html)
 - [勉強会資料(練習問題有り)](https://gist.github.com/bati11/2cd07100c8ba226632c6623d91dbd4f1)
