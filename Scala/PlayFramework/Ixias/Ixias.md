@@ -160,10 +160,10 @@ def all():Future[Seq[EntityEmbeddedId]] = RunDBAction(TodoTable, slave) {slick =
 ```scala
 def title = column[String]("title", O.Utf8Char255)`
 ```
-def title ... Play側のカラム名<br>
-column[String] ... Play側の型<br>
-"title" ... SQL側のカラム名<br>
-O.Utf8Char255 ... SQL VARCHAR(255)型 文字コードutf8mb4使用<br>
+- def title ... Play側のカラム名<br>
+- column[String] ... Play側の型<br>
+- "title" ... SQL側のカラム名<br>
+- O.Utf8Char255 ... SQL VARCHAR(255)型 文字コードutf8mb4使用<br>
 
 # EnumStatusについて
 Enum型は[ixias.util.Enum](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/util/Enum.scala)を参照
