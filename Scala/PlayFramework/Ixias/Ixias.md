@@ -139,7 +139,7 @@ obejct Entity{
 さらに、dataの型はMとなっており、これが先ほどの`final case class Entity`に繋がってくるという意味です。<br>
 例えばこんな感じですかね...
 ```scala
-todo[EntityEmbeddedId[Todo]]はパラメータ(引数)としてv:M(data)を持っているので、
+変数todo[EntityEmbeddedId[Todo]]はパラメータ(引数)としてv:M(data)を持っているので、
 todo.vによりEntityEmbeddedIdで包まれた値がぽろっと外れてTodo型だけになるといった感じです
 ```
 
