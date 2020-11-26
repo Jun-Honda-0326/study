@@ -113,6 +113,38 @@ def remove(id: Id): Future[Option[EntityEmbeddedId]] //レコードの削除
 EntityIOActionを継承することにより、CRUD処理等のメソッドの命名や引数と返り値の型を統一することができる、プロダクトのコードを標準化することができる。
 
 ## EntityEmbeddedId型に包まれたデータの取得について
+### Entityで包まれた値が`.v`で取得できる訳について(自信ないですが...)
+Enitityクラスについては[ixias.model.Entity.scala](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/Entity.scala)に以下のように実装されています。
+``` scala
+final case class Entity[K <: @@[_, _], +M <: EntityModel[K], S <: IdStatus](v: M)
+```
+ここでv:Mは 普通のcase classのid, nameのようなパラメータの一つだと思えば良い<br>
+例えば、
+`case class Person(id: Int, name: String)`の場合だと
+nameの値を取り出したければ インスタンスを生成して、person.nameで取り出せばいけるが、それと考えは同じ！<br>
+どういうことかと言うと、obejct Entityを良く見てください。
+```scala
+//WirhNoId型は省略しています
+obejct Entity{
+ type   EmbeddedId[K <: @@[_, _], M <: EntityModel[K]] = Entity[K, M, IdStatus.Exists]
+  object EmbeddedId {
+    def apply[K <: @@[_, _], M <: EntityModel[K]](data: M): EmbeddedId[K, M] =
+      data.id match {
+        case Some(_) =>       new Entity(data)
+        case None    => throw new IllegalArgumentException("Could not found id on entity's data.")
+      }
+  }
+}
+```
+この定義の中でSome(_) => new Entitu(data)とあります。<br>
+つまり、idが存在している場合はdataという値を持ったEntityクラスを生成するという意味です。<br>
+さらに、dataの型はMとなっており、これが先ほどの`final case class Entity`に繋がってくるという意味です。<br>
+例えばこんな感じですかね...
+```scala
+todo[EntityEmbeddedId[Todo]]はパラメータ(引数)としてv:M(data)を持っているので、
+todo.vによりEntityEmbeddedIdで包まれた値がぽろっと外れてTodo型だけになるといった感じです
+```
+
 idの値に関しては`.id`で取得することができる。
 その他の値は`todo.v.title`のように続けて入力することで取得できる
 
@@ -122,8 +154,9 @@ def id(implicit ev: S =:= IdStatus.Exists): K = v.id.get
 
 例えば
 変数todo[EntityEmbeddedId]からidの値を取り出した場合、todo.idで取得できる
-変数todo[EntityEmbeddedId]からtitleの値を取り出したい場合、todo.v.nameで取得できる
 ```
+
+
 
 ### SlickRunDBActionについて
 - 永続ストレージとは...DBみたいなやつ(ちゃんとした知識については勉強中)
@@ -179,5 +212,3 @@ lib.modelの実装例
 ControllerでFormの実装例
 state: TodoStatus = TodoRepository.apply(state: Short) //applyメソッドを使用することにより、Enumの変換が可能
 ```
-
-
