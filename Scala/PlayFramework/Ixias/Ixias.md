@@ -118,11 +118,9 @@ Enitityクラスについては[ixias.model.Entity.scala](https://github.com/ixi
 ``` scala
 final case class Entity[K <: @@[_, _], +M <: EntityModel[K], S <: IdStatus](v: M)
 ```
-ここでv:Mは 普通のcase classのid, nameのようなパラメータの一つだと思えば良い<br>
-例えば、
-`case class Person(id: Int, name: String)`の場合だと
-nameの値を取り出したければ インスタンスを生成して、person.nameで取り出せばいけるが、それと考えは同じ！<br>
-どういうことかと言うと、同じくixias.model.Entity.scalaのobejct Entityを良く見てください。
+ここでv:Mは 普通のcase classのid, nameのようなパラメータの一つだと思えば良いです。<br>
+例えば、`case class Person(id: Int, name: String)`の場合だと、`name`の値を取り出したければ インスタンスを生成して、`person.name`で取り出せばいけるが、それと考えは同じ！<br>
+どういうことかと言うと、同じくixias.model.Entity.scalaの`obejct Entity`を良く見てください。
 ```scala
 //WirhNoId型は省略しています
 obejct Entity{
@@ -151,12 +149,9 @@ idの値に関しては`.id`で取得することができる。
 idが`.id`で取得できるのは[ixias.model.Entity.scala](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/Entity.scala)で以下のように実装されているためである。
 ```scala
 def id(implicit ev: S =:= IdStatus.Exists): K = v.id.get
-
 例えば
 変数todo[EntityEmbeddedId]からidの値を取り出した場合、todo.idで取得できる
 ```
-
-
 
 ### SlickRunDBActionについて
 - 永続ストレージとは...DBみたいなやつ(ちゃんとした知識については勉強中)
@@ -174,7 +169,6 @@ Slickのみの実装とIxiasを使った実装
 Slickのみの場合
 def all():Future[Seq[Todo]] = db.run(TodoTable.result)
 
-
 Ixiasを使用する場合
 def all():Future[Seq[EntityEmbeddedId]] = RunDBAction(TodoTable, slave) {slick =>  slick.result }
 ※返り値がEntityEmbeddedId型になっている
@@ -185,9 +179,8 @@ def all():Future[Seq[EntityEmbeddedId]] = RunDBAction(TodoTable, slave) {slick =
 
 # SQLとPlay側とのマッピング定義について
 当然の事ながら、SQLで使用している型とPlayで使用している型は違う。<br>
-そのため、Play <==> SQLとのDBカラムのマッピング定義が必要である。
-こちらの実装についてもIxiasを用いて定義することができる。
-
+そのため、Play <==> SQLとのDBカラムのマッピング定義が必要である。<br>
+こちらの実装についてもIxiasを用いて定義することができる。<br>
 定義元は[ixias.persistence.lifted.SlickColumnOptionOps](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/persistence/lifted/SlickColumnOptionOps.scala)に記載されており、この中からマッチしているカラムに変換する処理を記述する<br>
 実装例
 ```scala
