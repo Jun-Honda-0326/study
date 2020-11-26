@@ -122,7 +122,7 @@ def id(implicit ev: S =:= IdStatus.Exists): K = v.id.get
 
 例えば
 変数todo[EntityEmbeddedId]からidの値を取り出した場合、todo.idで取得できる
-変数todo[EntityEmbeddedId]からtitleの値を取り出したい場合、todo.v.nameで取得できる
+変数todo[EntityEmbeddedId]からtitleの値を取り出したい場合、todo.v.で取得できる
 ```
 
 ### SlickRunDBActionについて
