@@ -155,7 +155,7 @@ def all():Future[Seq[EntityEmbeddedId]] = RunDBAction(TodoTable, slave) {slick =
 そのため、Play <==> SQLとのDBカラムのマッピング定義が必要である。
 こちらの実装についてもIxiasを用いて定義することができる。
 
-定義元は[ixias.persistence.lifted.SlickColumnOptionOps](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/persistence/lifted/SlickColumnOptionOps.scala)に記載されており、この中からマッチしているカラムに変換する処理を記述する
+定義元は[ixias.persistence.lifted.SlickColumnOptionOps](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/persistence/lifted/SlickColumnOptionOps.scala)に記載されており、この中からマッチしているカラムに変換する処理を記述する<br>
 実装例
 ```scala
 def title = column[String]("title", O.Utf8Char255)`
