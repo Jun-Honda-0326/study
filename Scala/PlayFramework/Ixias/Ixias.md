@@ -1,12 +1,12 @@
 # [Ixias](https://github.com/ixias-net/ixias)
-### 概要
+# 概要
 Ixiasとはプロダクトの作り方を標準化、ビジネスロジックの標準化を提供するためのライブラリ。
-### 開発経緯
+# 開発経緯
 サービスによって技術の選択水準が変わり、俗人化が生まれるとプロダクト間の人材ローテーションがしづらくなる。
 人材ローテーションが容易にできるようになれば、エンジニアの成長に繋がる。
 また、オフショア開発でも品筆が保てるように標準化ライブラリが開発された。
 
-## Ixiasの導入
+# Ixiasの導入
 Ixiasはbuild.sbtに以下の記述をすることで導入できる。
 ```scala
 scalaVersion := "2.12.11"
@@ -23,7 +23,7 @@ libraryDependencies ++= Seq(
 
 ※Scalaのバージョンは2.12〜でないと依存ライブラリの関係でうまく使えないことがある。
 ```
-## Ixias.modelパッケージについて
+# Ixias.modelパッケージについて
 ixias-coreライブラリ内に実装されており、DDDにおけるエンティティに対応する枠組みを実装しており、Ixiasの核となる実装をしている。
 ```scala
 package lib.model
@@ -57,26 +57,46 @@ object Todo {
 }
 WithNoIdはidを持たないEntity
 ```
+## EntityModelクラスについて
+EntituModelクラスではid、updatedAt、createdAtをを定義しており、これらはEntityModelトレイトに抽象値として定義されているので、
+命名と型は定義通りにしないとコンパイル時にエラーが出る。<br>
+  [定義元](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/EntityModel.scala)<br>
+  idはOption[Id]型を持つ。<br>
+  updatedAtとcreatedAtはjava.time.LocalDateTime(要import)を持つ。<br>
+  これら２つには[ixias.model.package.scala](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/package.scala)内に定義されているNOWメソッドをデフォルト値として与えている
 
+## Idの定義について
+コンパニオンオブジェクトではIdの型を定義している。
+Idの型はshapeless.tagg.@@を用いて実装される。<br>
+例えば
+```scala
+Long @@ Todo
+```
+という記述はLong型にTodoというタグがついている。<br>
+これにより、同一性を持つ識別子として取り扱うことができる(より型安全になる！！)<br>
 
-上記の実装ではCatedyIdがCategory.Idとっている
-これはcase class Categoryのidの型を表している。
-この実装をすることにより、Long型のidであってもCategory型のidしかDBに格納することができないので、
-より型安全な実装をすることができる。
+@@とshapelessの変換は[package.scala](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/package.scala)で実装されている。<br>
+
+上記の実装ではCatedyIdがCategory.Idとっており、これににより、Long型のidであってもCategory型のid(CategoryのタグがついたId)しかDBに格納することができないので、より型安全な実装をすることができる。
 
 ixias.EntityModelクラスには、id,updatedAt, createdAtの3つの値を定義している。
-それぞれ以下のように定義されている
+それぞれ以下のように定義されている。
+
 ```scala
 val id: Option[Id]
-
 val updatedAt: LocalDateTime
 val createdAt: LocalDateTime
-このupdatedAt,createdAtには、ixias.model.package内に定義されているNOWメソッドをデフォルトの値として与える。
+このうち、updatedAt,createdAtには、ixias.model.package内に定義されているNOWメソッドをデフォルトの値として与える。
 ```
+## WithNoIdとEmbeddedId型について
+EnitityModelトレイトにはWithNoId型とEmbeddedId型が定義されている<br>
+[定義元](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/model/Entity.scala)<br>
+WithNoId型はidを持たないEntity、EmbeddedId型はidを持たないEntityという意味になる。
 
-WithNoIdとEmbeddedIdを用いた処理
 
-## 永続ストレージとの連携
+
+## WithNoIdとEmbeddedIdを用いた処理
+### 永続ストレージとの連携
 永続ストレージとの連携を行うReposotoryオブジェクトへ継承
 [ixias.persistence.dbio.EntityOAciton](https://github.com/ixias-net/ixias/blob/develop/framework/ixias-core/src/main/scala/ixias/persistence/dbio/EntityIOAction.scala)トレイトにはCRUD処理を行うための抽象メソッドが定義されている
 ```scala
@@ -110,3 +130,5 @@ lib.modelの実装例
 ControllerでFormの実装例
 state: TodoStatus = TodoRepository.apply(state: Short)
 ```
+
+
