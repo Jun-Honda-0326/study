@@ -1,9 +1,0 @@
-2020.11.24 05:31:34 INFO  Started: Metals version 0.9.6 in workspace '/Users/jun/projects/study' for client vscode.
-2020.11.24 05:31:35 INFO  time: initialize in 1.36s
-2020.11.24 05:31:37 WARN  Build server is not auto-connectable.
-2020.11.24 05:31:37 WARN  no build tool detected in workspace '/Users/jun/projects/study'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
-2020.11.25 05:57:58 INFO  shutting down Metals
-2020.11.26 08:05:20 INFO  Started: Metals version 0.9.6 in workspace '/Users/jun/projects/study' for client vscode.
-2020.11.26 08:05:22 INFO  time: initialize in 1.8s
-2020.11.26 08:05:23 WARN  Build server is not auto-connectable.
-2020.11.26 08:05:23 WARN  no build tool detected in workspace '/Users/jun/projects/study'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
