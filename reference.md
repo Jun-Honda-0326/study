@@ -6,6 +6,7 @@
 - [公式サイト](https://docs.scala-lang.org/ja/tour/basics.html)
 - [ライブラリ集](https://www.scala-lang.org/api/current/index.html)
 - [コレクションメソッドについて](https://www.ne.jp/asahi/hishidama/home/tech/scala/collection/method.html)
+- [型クラスについて](https://www2.slideshare.net/MakotoFukuhara/scala-56310825)
 
 ## PlayFramework
 - [公式サイト](https://www.playframework.com/documentation/2.8.x/ScalaHome)

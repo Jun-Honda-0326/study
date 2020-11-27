@@ -23,3 +23,7 @@
 - 脆弱性
   - セッションの追跡をcookieだけで行っている場合
   - 認証機能をBasic認証のみで行っている場合
+
+## JSONについて
+JSONはJavaScript Object Notationの略であり、KeyとValueを持っているテキストベースのデータフォーマットである。<br>
+APIでデータを取得する際などによく使う
