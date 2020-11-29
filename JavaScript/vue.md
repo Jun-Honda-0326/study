@@ -33,10 +33,11 @@ el: '#app'
 - マスタッシュ構文
   - 二重の中括弧のことでVue.jsではデータの取り扱いをマスタッシュ構文で行う.
 
-- ディレクティブ
+## ディレクティブ
   - v- で始まる特別な属性のこと
   - Vue.jsに何らかの指令を行う仕組み
   - 制御構文のようなもの(ex: for, ifなど)
+
 ```js
 v-bind //属性へのデータバインディング
 v-if
@@ -45,5 +46,16 @@ v-if
 v-show
 //じ条件分岐
 //条件を満たさない場合、仮想DOMからは削除せずCSSのdisplay:noneを割り当てる
+v-for //繰り返し処理
+<li v-for= "todo" in todos>{{todo}}</li>
 
+v-on イベント処理
+<button v-on:click="onclikc">click </button>
+clickボタンを押すと、clickメソッドが立ち上がるイベント処理
+
+v-model //双方向データバインディング
+オブジェクトの中身を変更する
+<input type="text" v-model="message">
 ```
+
+## コンポーネント
