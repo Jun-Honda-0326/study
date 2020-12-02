@@ -40,22 +40,35 @@ el: '#app'
 
 ```js
 v-bind //属性へのデータバインディング
+```
+
+```js
 v-if
 // 条件分岐要素の表示、非表示の切替えを行う
 //条件を満たさない婆はDOMごと削除する
 v-show
-//じ条件分岐
+//条件分岐
 //条件を満たさない場合、仮想DOMからは削除せずCSSのdisplay:noneを割り当てる
+```
+```js
 v-for //繰り返し処理
 <li v-for= "todo" in todos>{{todo}}</li>
+```
 
+```js
 v-on イベント処理
 <button v-on:click="onclikc">click </button>
 clickボタンを押すと、clickメソッドが立ち上がるイベント処理
-
+```
+```js
 v-model //双方向データバインディング
 オブジェクトの中身を変更する
 <input type="text" v-model="message">
+```
+
+```js
+v-once
+初回だけテキストバインディングを行いたい場合
 ```
 
 ## コンポーネント
