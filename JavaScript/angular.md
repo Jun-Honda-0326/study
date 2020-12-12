@@ -1,3 +1,14 @@
+# Angularまとめ
+Angularでは、アプリを構成する機能を モジュール という単位で分割して作成できるようになっており、1つ以上のモジュールを組み合わせることでアプリ全体を構成します。
+また、Angularでは、ビュー・スタイル・ロジックをひとまとめにした コンポーネント という単位でUI部品を作っていきます。作ったコンポーネントは、モジュールに登録することでそのモジュール内で利用可能になります。
+
+## 読み込みの流れ
+- main.ts は AppModule を起動する
+- AppModule は AppComponent を読み込んでいる
+- AppComponent は app.component.html を読み込んでいる
+
+
+
 ## component作成のためのCLI
 ```
 ng generate component [name]

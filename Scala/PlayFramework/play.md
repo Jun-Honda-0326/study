@@ -39,7 +39,7 @@ val json: JsValue = JsObject(
   )
 )
 ```
-上上記コードはJson.objを使用して以下のように書き換えることができる
+上記コードはJson.objを使用して以下のように書き換えることができる
 ```scala
 import play.api.libs.json.JsNull
 import play.api.libs.json.Json
