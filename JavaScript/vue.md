@@ -52,7 +52,9 @@ v-show
 ```
 ```js
 v-for //繰り返し処理
-<li v-for= "todo" in todos>{{todo}}</li>
+<li v-for= "todo" in todos>
+  {{todo}}
+</li>
 ```
 
 ```js
